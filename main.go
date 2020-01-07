@@ -3,5 +3,5 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("Vou executar...")
+	fmt.Println("Run all tests with 'make test'")
 }

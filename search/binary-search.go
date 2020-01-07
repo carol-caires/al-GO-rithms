@@ -1,6 +1,6 @@
 package search
 
-import "fmt"
+import "github.com/labstack/gommon/log"
 
 func main() {
 
@@ -11,23 +11,21 @@ func BinarySearch(list []string, item string) int {
 	l := 0
 	u := len(list) - 1
 
-	fmt.Println("Searching", item, "in a list with", u, "items")
+	log.Infof("Searching %s in a list with %d items", item, u)
 	for n := range list {
 		m := int((l + u) / 2)
 
 		if list[m] == item {
-			fmt.Println("Got it after", n, "tries! Position of the item:", m)
+			log.Infof("Got it after %d tries! Position of the item %d", n, m)
 			return m
-		}
-		if list[m] > item {
-			fmt.Println(m, "superestimated guess")
+		} else if list[m] > item {
+			log.Infof("%d is a superestimated guess", m)
 			u = m - 1
-		}
-		if list[m] < item {
-			fmt.Println(m, "underestimated guess")
+		} else if list[m] < item {
+			log.Infof("%d is a underestimated guess", m)
 			l = m + 1
 		}
 	}
-	fmt.Println("Cannot find item :(")
+	log.Info("Cannot find item :(")
 	return -1
 }
