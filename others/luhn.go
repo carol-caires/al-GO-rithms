@@ -2,7 +2,6 @@ package others
 
 import (
 	"errors"
-	"regexp"
 	"strconv"
 	"strings"
 )
@@ -13,13 +12,12 @@ import (
 */
 func luhn(number string) (bool, error) {
 	number = strings.ReplaceAll(number, " ", "")
-	var re = regexp.MustCompile(`\D+`)
-	if len(re.FindStringIndex(number)) > 0 {
-		return false, errors.New("all characters must be numbers")
-	}
 	var sum int
 	for i := 0; i < len(number); i++ {
-		newNum, _ := strconv.Atoi(string(number[i]))
+		newNum, err := strconv.Atoi(string(number[i]))
+		if err != nil {
+			return false, errors.New("all characters must be numbers")
+		}
 		if i == 0 || i % 2 == 0 {
 			double := newNum * 2
 			if double > 9 {
